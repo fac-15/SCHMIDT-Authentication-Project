@@ -15,3 +15,6 @@ authentication with cookies and jwt
 
 ![](https://files.gitter.im/foundersandcoders/schmidt/BpSq/1523787368241925065.jpg)
 ![](https://files.gitter.im/foundersandcoders/schmidt/59LQ/1752501801988654219.jpg)
+
+Hannah and Charmaine worked together to create and populate database
+
