@@ -12,3 +12,6 @@
 + [ ] Include thorough tests on the back-end, testing pure functions and testing routes using Supertest. If you make external API calls, use Nock to mock the response for your tests.
 + [ ] Test front-end logic, we don't expect tests on the DOM.
 authentication with cookies and jwt
+
+![](https://files.gitter.im/foundersandcoders/schmidt/BpSq/1523787368241925065.jpg)
+![](https://files.gitter.im/foundersandcoders/schmidt/59LQ/1752501801988654219.jpg)
