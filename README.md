@@ -18,3 +18,5 @@ authentication with cookies and jwt
 
 Hannah and Charmaine worked together to create and populate database
 
+###Trouble we had.
+not exporting roots in handler, not requiring the JS files.
