@@ -1,5 +1,5 @@
 const handler = require("./handler.js");
-const routes = ["/style.css", "/main.js", "/index.html"];
+const routes = ["/style.css", "/signup.js", "/index.html"];
 
 const router = (req, res) => {
   const method = req.method;
@@ -13,8 +13,13 @@ const router = (req, res) => {
     handler.public(req, res, url);
   } else if (url === "/favicon.ico") {
     res.end();
-  } else if (method === "GET") {
-    handler.dynamic(req, res, url);
+  }
+  // else if (method === "GET") {
+  //   handler.dynamic(req, res, url);
+  // }
+  else if (url === "/signup") {
+    console.log("signup");
+    handler.signup(req, res, url);
   } else {
     res.writeHead(404, { "Content-Type": "text/html" });
     res.end("404, file not found!!!!!!");
