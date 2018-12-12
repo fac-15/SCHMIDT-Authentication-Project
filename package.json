@@ -1,5 +1,5 @@
 {
-  "name": "SCHMIDT-Authentication-Project",
+  "name": "schmidt-authentication-project",
   "version": "1.0.0",
   "description": "authentication with cookies and jwt",
   "main": "index.js",
@@ -13,18 +13,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fac-15/SCHMIDT-Authentication-Project.git"
+    "url": "git+https://github.com/fac-15/schmidt-authentication-project.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/fac-15/SCHMIDT-Authentication-Project/issues"
+    "url": "https://github.com/fac-15/schmidt-authentication-project/issues"
   },
-  "homepage": "https://github.com/fac-15/SCHMIDT-Authentication-Project#readme",
+  "homepage": "https://github.com/fac-15/shmidt-authentication-project#readme",
   "devDependencies": {
     "bcryptjs": "^2.4.3",
     "nodemon": "^1.18.8",
     "tape": "^4.9.1"
+  },
+  "dependencies": {
+    "request": "^2.88.0"
   }
 }
