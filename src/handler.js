@@ -59,6 +59,20 @@ const signup = (request, response, url) => {
   });
 };
 
+const login = (request, response, url) => {
+  const filePath = path.join(__dirname, "..", "public", "login.html");
+  fs.readFile(filePath, (error, file) => {
+    if (error) {
+      console.log(error);
+      response.writeHead(500, { "Content-Type": "text/html" });
+      response.end("<h1> we've hit and error </h1>");
+    } else {
+      response.writeHead(200, { "Content-Type": "text/html" });
+      response.end(file);
+    }
+  });
+};
+
 const authIndex = (request, response, url) => {
   const filePath = path.join(__dirname, "..", "auth", "auth_index.html");
   fs.readFile(filePath, (error, file) => {
@@ -67,10 +81,13 @@ const authIndex = (request, response, url) => {
       response.writeHead(500, { "Content-Type": "text/html" });
       response.end("<h1> we've hit and error </h1>");
     } else {
-      response.writeHead(200, {
-        "Content-Type": "text/html",
-        "Set-Cookie": "logged_in=true; HttpOnly; Max-Age=9000;"
+      response.writeHead(301, {
+        Location: "/",
+        "Content-Type": "text/html"
+        // "Content-Type": `${extType[ext]}`,
+        // "Set-Cookie": "logged_in=true; HttpOnly; Max-Age=9000;"
       });
+      // response.writeHead(200, { "Content-Type": `${extType[ext]}` });
       response.writeHead(200, { "Content-Type": "text/html" });
       response.end(file);
     }
@@ -113,5 +130,6 @@ module.exports = {
   public,
   signup,
   authIndex,
-  logout
+  logout,
+  login
 };

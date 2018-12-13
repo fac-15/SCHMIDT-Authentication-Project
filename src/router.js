@@ -21,6 +21,9 @@ const router = (req, res) => {
   } else if (url === "/signup") {
     console.log("signup");
     handler.signup(req, res, url);
+  } else if (url === "/login") {
+    console.log("we are loggin in");
+    handler.login(req, res, url);
   } else if (url === "/logout") {
     console.log("logged out");
     handler.logout(req, res, url);
