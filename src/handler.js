@@ -4,6 +4,7 @@ const request = require("request");
 const getData = require("./dynamic.js");
 const querystring = require("querystring");
 const addUserToDatabase = require("./postData.js");
+const bcrypt = require("bcryptjs");
 
 const serverError = (error, response) => {
   response.writeHead(500, { "Content-Type": "text/html" });
@@ -21,7 +22,7 @@ const home = (request, response) => {
   });
 };
 
-const public = (request, response, url) => {
+const publicRoute = (request, response, url) => {
   const ext = url.split(".")[1];
   const extType = {
     html: "text/html",
@@ -130,13 +131,21 @@ const handlerPost = (req, res) => {
     let post = querystring.parse(body);
     console.log(post);
     const { email, username, password } = post;
-    addUserToDatabase(email, username, password, (err, response) => {
-      if (err) {
-        return console.log(err, "posting error");
-      }
-      res.writeHead(302, { Location: "/login?" });
 
-      res.end();
+    bcrypt.hash(password, 8, (hashErr, hashedPassword) => {
+      if (hashErr) {
+        res.statusCode = 500;
+        res.end("Error registering");
+        return;
+      } else {
+        addUserToDatabase(email, username, hashedPassword, (err, response) => {
+          if (err) {
+            return console.log(err, "posting error");
+          }
+          res.writeHead(302, { Location: "/login?" });
+          res.end();
+        });
+      }
     });
   });
 };
@@ -145,7 +154,7 @@ module.exports = {
   serverError,
   home,
   dynamic,
-  public,
+  publicRoute,
   signup,
   handlerPost,
   authIndex,
