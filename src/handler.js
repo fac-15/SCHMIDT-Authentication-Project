@@ -53,11 +53,37 @@ const signup = (request, response, url) => {
       response.writeHead(500, { "Content-Type": "text/html" });
       response.end("<h1> we've hit and error </h1>");
     } else {
-      response.writeHead(200, { "Content-Type": "text/html" });
-      response.end(file);
-    }
-  });
-};
+      addUserToDatabase((req, res) =>{
+        let body = "";
+        req.on("data", (data) =>{
+          body += data;
+
+        });
+        req.on("end", ()=>{
+          let post = qs.parse(body);
+          dynamic.addUserToDatabase(
+            post.email,
+            post.name,
+            post.password,
+            (err, res) => {
+              if (err){
+                return console.log("posting error");  
+              } res.writeHead(302, {location:"http://localhost:5000" });
+             
+          res.end();
+            
+        }) 
+      });
+    })
+  }
+})
+}
+    
+//       response.writeHead(200, { "Content-Type": "text/html" });
+//       response.end(file);
+//     }
+//   });
+// };
 
 const dynamic = (request, response, url) => {
   const obj = querystring.parse(url);
