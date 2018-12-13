@@ -2,17 +2,16 @@ const dbConnection = require("../database/db_connection");
 const dynamic = require("./handler");
 
 const addUserToDatabase = (email, name, password, cb) => {
-  const database = db.get("data") || [];
+  const database = dbConnection.get("data") || [];
+  console.log(database)
   const newItem = { email, name, password };
   const updateDatabase = database.concat(newItem);
-  db.set({ data: updateDatabase });
+  dbConnection.set({ data: updateDatabase });
   cb(null, true);
 };
 
 const getData = (type, skill, level, cb) => {
-  console.log(type);
-  console.log(skill);
-  console.log(level);
+  
 
   dbConnection.query(`SELECT * FROM resources`, (err, res) => {
     if (err) return cb(err);
@@ -21,4 +20,5 @@ const getData = (type, skill, level, cb) => {
   });
 };
 
-module.exports = getData;
+module.exports = {getData,
+                  addUserToDatabase}
