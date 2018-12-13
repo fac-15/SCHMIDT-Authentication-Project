@@ -3,6 +3,7 @@ const path = require("path");
 const request = require("request");
 const getData = require("./dynamic.js");
 const querystring = require("querystring");
+const addUserToDatabase = require("./postData.js");
 
 const serverError = (error, response) => {
   response.writeHead(500, { "Content-Type": "text/html" });
@@ -111,15 +112,32 @@ const dynamic = (request, response, url) => {
   const skill = obj["skill_list"];
   const level = obj["level_list"];
 
-  console.log(type);
-  console.log(skill);
-  console.log(level);
-
   getData(type, skill, level, (err, res) => {
     if (err) return console.log(err);
     let dynamicData = JSON.stringify(res);
     response.writeHead(200, { "Content-Type": "application/json" });
     response.end(dynamicData);
+  });
+};
+
+const handlerPost = (req, res) => {
+  let body = "";
+  req.on("data", function(data) {
+    body += data;
+  });
+  // console.log("THISIS BODY", body);
+  req.on("end", function() {
+    let post = querystring.parse(body);
+    console.log(post);
+    const { email, username, password } = post;
+    addUserToDatabase(email, username, password, (err, response) => {
+      if (err) {
+        return console.log(err, "posting error");
+      }
+      res.writeHead(302, { Location: "/login?" });
+
+      res.end();
+    });
   });
 };
 
@@ -129,6 +147,7 @@ module.exports = {
   dynamic,
   public,
   signup,
+  handlerPost,
   authIndex,
   logout,
   login
