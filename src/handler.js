@@ -3,6 +3,7 @@ const path = require("path");
 const request = require("request");
 const getData = require("./dynamic.js");
 const querystring = require("querystring");
+const addUserToDatabase = require("./postData.js");
 
 const serverError = (error, response) => {
   response.writeHead(500, { "Content-Type": "text/html" });
@@ -53,37 +54,11 @@ const signup = (request, response, url) => {
       response.writeHead(500, { "Content-Type": "text/html" });
       response.end("<h1> we've hit and error </h1>");
     } else {
-      addUserToDatabase((req, res) =>{
-        let body = "";
-        req.on("data", (data) =>{
-          body += data;
-
-        });
-        req.on("end", ()=>{
-          let post = qs.parse(body);
-          dynamic.addUserToDatabase(
-            post.email,
-            post.name,
-            post.password,
-            (err, res) => {
-              if (err){
-                return console.log("posting error");  
-              } res.writeHead(302, {location:"http://localhost:5000" });
-             
-          res.end();
-            
-        }) 
-      });
-    })
-  }
-})
-}
-    
-//       response.writeHead(200, { "Content-Type": "text/html" });
-//       response.end(file);
-//     }
-//   });
-// };
+      response.writeHead(200, { "Content-Type": "text/html" });
+      response.end(file);
+    }
+  });
+};
 
 const dynamic = (request, response, url) => {
   const obj = querystring.parse(url);
@@ -93,10 +68,6 @@ const dynamic = (request, response, url) => {
   const skill = obj["skill_list"];
   const level = obj["level_list"];
 
-  console.log(type);
-  console.log(skill);
-  console.log(level);
-
   getData(type, skill, level, (err, res) => {
     if (err) return console.log(err);
     let dynamicData = JSON.stringify(res);
@@ -105,4 +76,23 @@ const dynamic = (request, response, url) => {
   });
 };
 
-module.exports = { serverError, home, dynamic, public, signup };
+const handlerPost = (req, res) => {
+  let body = "";
+  req.on("data", function(data) {
+    body += data;
+  });
+  req.on("end", function() {
+    let post = querystring.parse(body);
+    console.log(post);
+    const { email, username, password } = post;
+    addUserToDatabase(email, username, password, (err, response) => {
+      if (err) {
+        return console.log(err, "posting error");
+      }
+      res.writeHead(302, { Location: "http://localhost:5000" });
+
+      res.end();
+    });
+  });
+};
+module.exports = { serverError, home, dynamic, public, signup, handlerPost };
