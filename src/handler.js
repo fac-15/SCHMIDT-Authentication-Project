@@ -59,6 +59,23 @@ const signup = (request, response, url) => {
   });
 };
 
+const authIndex = (request, response, url) => {
+  const filePath = path.join(__dirname, "..", "auth", "auth_index.html");
+  fs.readFile(filePath, (error, file) => {
+    if (error) {
+      console.log("auth error: ", error);
+      response.writeHead(500, { "Content-Type": "text/html" });
+      response.end("<h1> we've hit and error </h1>");
+    } else {
+      response.writeHead(200, {
+        "Content-Type": "text/html",
+        "Set-Cookie": "logged_in=true; HttpOnly; Max-Age=9000;"
+      });
+      response.end(file);
+    }
+  });
+};
+
 const dynamic = (request, response, url) => {
   const obj = querystring.parse(url);
   console.log(obj);
@@ -79,4 +96,4 @@ const dynamic = (request, response, url) => {
   });
 };
 
-module.exports = { serverError, home, dynamic, public, signup };
+module.exports = { serverError, home, dynamic, public, signup, authIndex };
