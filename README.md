@@ -28,6 +28,10 @@ authentication with cookies and jwt
 - Hannah and Charmaine worked together to create and populate database
 - Sack and Mike set up signup page with client-side validation 
   - we had trouble not exporting roots in handler, not requiring the JS files.
+  
+## Day 2
+
+- Hannah and Sak working on getting the post request working so that we can add new users to our user table in our database.                          
 
 
 
