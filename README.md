@@ -2,6 +2,11 @@
 
 ### Start instructions 
 
+- git clone 
+- get the config.env
+- npm i 
+- npm run dev
+
 ### Requirements
 + [ ] Login form with 2 fields - username and password
 + [ ] Users only have to log in once (i.e. implement a cookie-based session on login)
@@ -13,10 +18,16 @@
 + [ ] Test front-end logic, we don't expect tests on the DOM.
 authentication with cookies and jwt
 
+### Planning and setup 
+
 ![](https://files.gitter.im/foundersandcoders/schmidt/BpSq/1523787368241925065.jpg)
 ![](https://files.gitter.im/foundersandcoders/schmidt/59LQ/1752501801988654219.jpg)
 
-Hannah and Charmaine worked together to create and populate database
+## Day 1
 
-###Trouble we had.
-not exporting roots in handler, not requiring the JS files.
+- Hannah and Charmaine worked together to create and populate database
+- Sack and Mike set up signup page with client-side validation 
+  - we had trouble not exporting roots in handler, not requiring the JS files.
+
+
+
