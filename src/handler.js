@@ -59,24 +59,24 @@ const signup = (request, response, url) => {
   });
 };
 
-// const dynamic = (request, response, url) => {
-//   const obj = querystring.parse(url);
-//   console.log(obj);
+const dynamic = (request, response, url) => {
+  const obj = querystring.parse(url);
+  console.log(obj);
 
-//   const type = obj["/?type_list"];
-//   const skill = obj["skill_list"];
-//   const level = obj["level_list"];
+  const type = obj["/?type_list"];
+  const skill = obj["skill_list"];
+  const level = obj["level_list"];
 
-//   console.log(type);
-//   console.log(skill);
-//   console.log(level);
+  console.log(type);
+  console.log(skill);
+  console.log(level);
 
-//   getData(type, skill, level, (err, res) => {
-//     if (err) return console.log(err);
-//     let dynamicData = JSON.stringify(res);
-//     response.writeHead(200, { "Content-Type": "application/json" });
-//     response.end(dynamicData);
-//   });
-// };
+  getData(type, skill, level, (err, res) => {
+    if (err) return console.log(err);
+    let dynamicData = JSON.stringify(res);
+    response.writeHead(200, { "Content-Type": "application/json" });
+    response.end(dynamicData);
+  });
+};
 
-module.exports = { serverError, home, public, signup };
+module.exports = { serverError, home, dynamic, public, signup };

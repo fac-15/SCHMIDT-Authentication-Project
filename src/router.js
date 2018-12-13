@@ -13,11 +13,9 @@ const router = (req, res) => {
     handler.public(req, res, url);
   } else if (url === "/favicon.ico") {
     res.end();
-  }
-  // else if (method === "GET") {
-  //   handler.dynamic(req, res, url);
-  // }
-  else if (url === "/signup") {
+  } else if (method === "GET") {
+    handler.dynamic(req, res, url);
+  } else if (url === "/signup") {
     console.log("signup");
     handler.signup(req, res, url);
   } else {
