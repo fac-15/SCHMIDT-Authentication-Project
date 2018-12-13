@@ -71,9 +71,19 @@ const authIndex = (request, response, url) => {
         "Content-Type": "text/html",
         "Set-Cookie": "logged_in=true; HttpOnly; Max-Age=9000;"
       });
+      response.writeHead(200, { "Content-Type": "text/html" });
       response.end(file);
     }
   });
+};
+
+const logout = (request, response, url) => {
+  response.writeHead(301, {
+    Location: "/",
+    "Content-Type": "text/html",
+    "Set-Cookie": "logged_in=false; HttpOnly; Max-Age=0"
+  });
+  response.end();
 };
 
 const dynamic = (request, response, url) => {
@@ -96,4 +106,12 @@ const dynamic = (request, response, url) => {
   });
 };
 
-module.exports = { serverError, home, dynamic, public, signup, authIndex };
+module.exports = {
+  serverError,
+  home,
+  dynamic,
+  public,
+  signup,
+  authIndex,
+  logout
+};
