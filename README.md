@@ -31,7 +31,8 @@ authentication with cookies and jwt
   
 ## Day 2
 
-- Hannah and Sak working on getting the post request working so that we can add new users to our user table in our database.                          
+- Hannah and Sak working on getting the post request working so that we can add new users to our user table in our database.
+- Mike and Charmaine working on client-side authorisation and sign up/log in pages
 
 
 
