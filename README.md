@@ -33,6 +33,7 @@ authentication with cookies and jwt
 
 - Hannah and Sak working on getting the post request working so that we can add new users to our user table in our database.
 - Mike and Charmaine working on cookies and log-in page
+- Hannah and Charmaine work on hashing passwords
 
 
 
