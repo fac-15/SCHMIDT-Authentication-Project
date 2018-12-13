@@ -60,6 +60,50 @@ const signup = (request, response, url) => {
   });
 };
 
+const login = (request, response, url) => {
+  const filePath = path.join(__dirname, "..", "public", "login.html");
+  fs.readFile(filePath, (error, file) => {
+    if (error) {
+      console.log(error);
+      response.writeHead(500, { "Content-Type": "text/html" });
+      response.end("<h1> we've hit and error </h1>");
+    } else {
+      response.writeHead(200, { "Content-Type": "text/html" });
+      response.end(file);
+    }
+  });
+};
+
+const authIndex = (request, response, url) => {
+  const filePath = path.join(__dirname, "..", "auth", "auth_index.html");
+  fs.readFile(filePath, (error, file) => {
+    if (error) {
+      console.log("auth error: ", error);
+      response.writeHead(500, { "Content-Type": "text/html" });
+      response.end("<h1> we've hit and error </h1>");
+    } else {
+      response.writeHead(301, {
+        Location: "/",
+        "Content-Type": "text/html"
+        // "Content-Type": `${extType[ext]}`,
+        // "Set-Cookie": "logged_in=true; HttpOnly; Max-Age=9000;"
+      });
+      // response.writeHead(200, { "Content-Type": `${extType[ext]}` });
+      response.writeHead(200, { "Content-Type": "text/html" });
+      response.end(file);
+    }
+  });
+};
+
+const logout = (request, response, url) => {
+  response.writeHead(301, {
+    Location: "/",
+    "Content-Type": "text/html",
+    "Set-Cookie": "logged_in=false; HttpOnly; Max-Age=0"
+  });
+  response.end();
+};
+
 const dynamic = (request, response, url) => {
   const obj = querystring.parse(url);
   console.log(obj);
@@ -81,6 +125,7 @@ const handlerPost = (req, res) => {
   req.on("data", function(data) {
     body += data;
   });
+  // console.log("THISIS BODY", body);
   req.on("end", function() {
     let post = querystring.parse(body);
     console.log(post);
@@ -89,10 +134,21 @@ const handlerPost = (req, res) => {
       if (err) {
         return console.log(err, "posting error");
       }
-      res.writeHead(302, { Location: "http://localhost:5000" });
+      res.writeHead(302, { Location: "/login?" });
 
       res.end();
     });
   });
 };
-module.exports = { serverError, home, dynamic, public, signup, handlerPost };
+
+module.exports = {
+  serverError,
+  home,
+  dynamic,
+  public,
+  signup,
+  handlerPost,
+  authIndex,
+  logout,
+  login
+};

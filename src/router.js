@@ -1,10 +1,16 @@
 const handler = require("./handler.js");
-const routes = ["/style.css", "/signup.js", "/index.html"];
+const routes = [
+  "/style.css",
+  "/signup.js",
+  "/index.html",
+  "/auth//authIndex.html"
+];
 
 const router = (req, res) => {
   const method = req.method;
   console.log(method);
   const url = req.url;
+
   if (req.method == "POST") {
     handler.handlerPost(req, res);
   } else {
@@ -16,9 +22,18 @@ const router = (req, res) => {
       handler.public(req, res, url);
     } else if (url === "/favicon.ico") {
       res.end();
-    } else if (url === "/signup") {
+    } else if (url === "/signup?") {
       console.log("signup");
       handler.signup(req, res, url);
+    } else if (url === "/login?") {
+      console.log("we are loggin in");
+      handler.login(req, res, url);
+    } else if (url === "/logout") {
+      console.log("logged out");
+      handler.logout(req, res, url);
+    } else if (url === "/auth/auth_index.html") {
+      console.log("signed up!");
+      handler.authIndex(req, res, url);
     } else if (method === "GET") {
       handler.dynamic(req, res, url);
     } else {
