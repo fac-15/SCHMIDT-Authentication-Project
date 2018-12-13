@@ -19,7 +19,7 @@ const router = (req, res) => {
       handler.home(req, res);
     } else if (routes.includes(url)) {
       console.log("./public/index.html");
-      handler.public(req, res, url);
+      handler.publicRoute(req, res, url);
     } else if (url === "/favicon.ico") {
       res.end();
     } else if (url === "/signup?") {
