@@ -86,9 +86,9 @@ const authIndex = (request, response, url) => {
     } else {
       response.writeHead(301, {
         Location: "/",
-        "Content-Type": "text/html"
+        "Content-Type": "text/html",
         // "Content-Type": `${extType[ext]}`,
-        // "Set-Cookie": "logged_in=true; HttpOnly; Max-Age=9000;"
+        "Set-Cookie": "logged_in=true; HttpOnly; Max-Age=9000;"
       });
       // response.writeHead(200, { "Content-Type": `${extType[ext]}` });
       response.writeHead(200, { "Content-Type": "text/html" });
@@ -135,13 +135,37 @@ const loginUser = (req, res, url) => {
             return console.log(err, "posting error");
           }
           console.log("RUSSS", response);
-          // res.writeHead(302, { Location: "/login?" });
-          // res.end();
+
+          if (response.length < 1) {
+            console.log("your username does not exist");
+          } else {
+            bcrypt.compare(
+              login_password,
+              response[0].password,
+              (err, response) => {
+                if (err) {
+                  console.log(err);
+                }
+
+                if (!response) {
+                  console.log("your password sucks");
+                  res.writeHead(401, { "Content-Type": "text/html" });
+                  res.end("password doesnt match");
+                } else {
+                  console.log("FOUND IT AGAIN!");
+                  res.writeHead(301, {
+                    Set_Cookie: "logged_in=true; HttPOnly; Max-Age=9000;",
+
+                    Location: "../auth/auth_index.html"
+                  });
+                  res.end();
+                }
+              }
+            );
+          }
         });
       }
     });
-    // res.writeHead(302, { Location: "/login?" });
-    // res.end();
   });
 };
 

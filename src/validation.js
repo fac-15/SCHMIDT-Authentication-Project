@@ -6,7 +6,7 @@ const checkUser = (username, password, cb) => {
   console.log("CHECKUSER---", username, password);
 
   dbConnection.query(
-    `SELECT * from users WHERE name = '${username}' and password = '${password}'`,
+    `SELECT * from users WHERE name = '${username}'`,
     (err, res) => {
       if (err) return cb(err);
       console.log("res: " + res.rows);
