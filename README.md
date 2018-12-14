@@ -3,9 +3,10 @@
 ### Start instructions 
 
 - git clone 
-- get the config.env
+- get the config.env (in gitter)
 - npm i 
 - npm run dev
+- view on port 5000
 
 ### Requirements
 + [ ] Login form with 2 fields - username and password
@@ -27,13 +28,29 @@ authentication with cookies and jwt
 
 - Hannah and Charmaine worked together to create and populate database
 - Sack and Mike set up signup page with client-side validation 
-  - we had trouble not exporting roots in handler, not requiring the JS files.
+- we had trouble not exporting roots in handler, not requiring the JS files.
   
 ## Day 2
 
 - Hannah and Sak working on getting the post request working so that we can add new users to our user table in our database.
 - Mike and Charmaine working on cookies and log-in page
 - Hannah and Charmaine work on hashing passwords
+
+## Challenges and Lessons
+- Server-side validation getting the data posted to a route that will be able to monitor and handle.
+- hashing not using bcrypt.compare which means we were having problem with password confirmation because we had different    hashes.
+- CSS on the auth page doesn't work
+- no database testing
+- no message for password entry
+- module exports
+
+## Victories
+- Leaving early
+- Client-side validation
+- Everyone knows what the code is doing/ not doing
+- Working together well
+- Got POST request working
+- Got Cookies working (kinda)
 
 
 
