@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "tape test/test.js | tap-spec",
     "start": "node src/server.js",
     "dev": "nodemon src/server.js"
   },
@@ -25,6 +25,8 @@
   "devDependencies": {
     "bcryptjs": "^2.4.3",
     "nodemon": "^1.18.8",
+    "supertest": "^3.3.0",
+    "tap-spec": "^5.0.0",
     "tape": "^4.9.1"
   },
   "dependencies": {
