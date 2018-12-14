@@ -5,6 +5,7 @@ const getData = require("./dynamic.js");
 const querystring = require("querystring");
 const addUserToDatabase = require("./postData.js");
 const bcrypt = require("bcryptjs");
+const checkUser = require("./validation.js");
 
 const serverError = (error, response) => {
   response.writeHead(500, { "Content-Type": "text/html" });
@@ -105,6 +106,45 @@ const logout = (request, response, url) => {
   response.end();
 };
 
+const loginUser = (req, res, url) => {
+  // console.log("BODYYYY:", request);
+  let body = "";
+  req.on("data", function(data) {
+    body += data;
+  });
+
+  req.on("end", function() {
+    let post = querystring.parse(body);
+    // console.log("NEWWWW", post);
+    const { login_username, login_password } = post;
+
+    // checkUser(login_username, login_password, (err, res) => {
+    //   if (err) {
+    //     return console.log(err, "posting error");
+    //   }
+    // console.log("RESSS", res);
+
+    bcrypt.hash(login_password, 8, (hashErr, hashedPassword) => {
+      if (hashErr) {
+        res.statusCode = 500;
+        res.end("Error registering");
+        return;
+      } else {
+        checkUser(login_username, hashedPassword, (err, response) => {
+          if (err) {
+            return console.log(err, "posting error");
+          }
+          console.log("RUSSS", response);
+          // res.writeHead(302, { Location: "/login?" });
+          // res.end();
+        });
+      }
+    });
+    // res.writeHead(302, { Location: "/login?" });
+    // res.end();
+  });
+};
+
 const dynamic = (request, response, url) => {
   const obj = querystring.parse(url);
   console.log(obj);
@@ -159,5 +199,6 @@ module.exports = {
   handlerPost,
   authIndex,
   logout,
-  login
+  login,
+  loginUser
 };
