@@ -4,6 +4,7 @@
 
 - git clone 
 - get the config.env (in gitter)
+- view on port 5000
 - npm i 
 - npm run dev
 
