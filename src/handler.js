@@ -5,6 +5,7 @@ const getData = require("./dynamic.js");
 const querystring = require("querystring");
 const addUserToDatabase = require("./postData.js");
 const bcrypt = require("bcryptjs");
+const checkUser = require("./validation.js");
 
 const serverError = (error, response) => {
   response.writeHead(500, { "Content-Type": "text/html" });
@@ -85,9 +86,9 @@ const authIndex = (request, response, url) => {
     } else {
       response.writeHead(301, {
         Location: "/",
-        "Content-Type": "text/html"
+        "Content-Type": "text/html",
         // "Content-Type": `${extType[ext]}`,
-        // "Set-Cookie": "logged_in=true; HttpOnly; Max-Age=9000;"
+        "Set-Cookie": "logged_in=true; HttpOnly; Max-Age=9000;"
       });
       // response.writeHead(200, { "Content-Type": `${extType[ext]}` });
       response.writeHead(200, { "Content-Type": "text/html" });
@@ -103,6 +104,69 @@ const logout = (request, response, url) => {
     "Set-Cookie": "logged_in=false; HttpOnly; Max-Age=0"
   });
   response.end();
+};
+
+const loginUser = (req, res, url) => {
+  // console.log("BODYYYY:", request);
+  let body = "";
+  req.on("data", function(data) {
+    body += data;
+  });
+
+  req.on("end", function() {
+    let post = querystring.parse(body);
+    // console.log("NEWWWW", post);
+    const { login_username, login_password } = post;
+
+    // checkUser(login_username, login_password, (err, res) => {
+    //   if (err) {
+    //     return console.log(err, "posting error");
+    //   }
+    // console.log("RESSS", res);
+
+    bcrypt.hash(login_password, 8, (hashErr, hashedPassword) => {
+      if (hashErr) {
+        res.statusCode = 500;
+        res.end("Error registering");
+        return;
+      } else {
+        checkUser(login_username, hashedPassword, (err, response) => {
+          if (err) {
+            return console.log(err, "posting error");
+          }
+          console.log("RUSSS", response);
+
+          if (response.length < 1) {
+            console.log("your username does not exist");
+          } else {
+            bcrypt.compare(
+              login_password,
+              response[0].password,
+              (err, response) => {
+                if (err) {
+                  console.log(err);
+                }
+
+                if (!response) {
+                  console.log("your password sucks");
+                  res.writeHead(401, { "Content-Type": "text/html" });
+                  res.end("password doesnt match");
+                } else {
+                  console.log("FOUND IT AGAIN!");
+                  res.writeHead(301, {
+                    Set_Cookie: "logged_in=true; HttPOnly; Max-Age=9000;",
+
+                    Location: "../auth/auth_index.html"
+                  });
+                  res.end();
+                }
+              }
+            );
+          }
+        });
+      }
+    });
+  });
 };
 
 const dynamic = (request, response, url) => {
@@ -159,5 +223,6 @@ module.exports = {
   handlerPost,
   authIndex,
   logout,
-  login
+  login,
+  loginUser
 };

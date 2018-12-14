@@ -8,32 +8,29 @@
   <body>
     <h1>Schmidt resources ltd</h1>
 
-    <form action="POST">
-        <input
-          type="text"
-          name="login_username"
-          id="login_username"
-          placeholder="your username"
-          required
-        />
-  
-        <input
-          type="text"
-          name="login_password"
-          id="login_password"
-          placeholder="your password"
-          required
-        />
+    <form method="POST" action="/login_user">
+      <input
+        type="text"
+        name="login_username"
+        id="login_username"
+        placeholder="your username"
+        required
+      />
 
-        </form>
+      <input
+        type="text"
+        name="login_password"
+        id="login_password"
+        placeholder="your password"
+        required
+      />
 
-    <button type="submit" id="login_btn">LOG IN!</button>
-
+      <button type="submit" id="login_btn">LOG IN!</button>
     </form>
 <!--     <form action="/" method="POST"> -->
     <button onclick="location.href = '/'">HOME</button>
 <!--     </form> -->
 
-    <script src="main.js"></script>
+    <script src="../src/dynamic.js"></script>
   </body>
 </html>

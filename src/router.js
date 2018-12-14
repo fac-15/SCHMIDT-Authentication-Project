@@ -11,7 +11,9 @@ const router = (req, res) => {
   console.log(method);
   const url = req.url;
 
-  if (req.method == "POST") {
+  if (url === "/login_user") {
+    handler.loginUser(req, res);
+  } else if (req.method == "POST") {
     handler.handlerPost(req, res);
   } else {
     if (url === "/") {
@@ -34,8 +36,11 @@ const router = (req, res) => {
     } else if (url === "/auth/auth_index.html") {
       console.log("signed up!");
       handler.authIndex(req, res, url);
+    } else if (method === "GET" && url === "GET?") {
+      console.log("whatever!");
     } else if (method === "GET") {
       handler.dynamic(req, res, url);
+      console.log("in dynamic!!!!");
     } else {
       res.writeHead(404, { "Content-Type": "text/html" });
       res.end("404, file not found!!!!!!");
