@@ -38,6 +38,8 @@
           id="password"
           placeholder="password"
           pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+          oninvalid="this.setCustomValidity('should be 8 characters long, with letters and numbers')"
+          oninput="this.setCustomValidity('')"
           required
         />
 
@@ -47,7 +49,6 @@
           name="confirm_password"
           id="confirmPassword"
           placeholder="confirm your password"
-          pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
           required
         />
       </div>
