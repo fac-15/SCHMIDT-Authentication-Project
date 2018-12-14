@@ -4,9 +4,9 @@
 
 - git clone 
 - get the config.env (in gitter)
-- view on port 5000
 - npm i 
 - npm run dev
+- view on port 5000
 
 ### Requirements
 + [ ] Login form with 2 fields - username and password
