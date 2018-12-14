@@ -3,7 +3,7 @@
 ### Start instructions 
 
 - git clone 
-- get the config.env
+- get the config.env (in gitter)
 - npm i 
 - npm run dev
 
